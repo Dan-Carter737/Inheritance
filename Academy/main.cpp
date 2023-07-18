@@ -54,8 +54,6 @@ public:
 	{
 		cout << last_name << " " << first_name << " " << age << endl;
 	}
-
-
 };
 
 class Student :public Human
@@ -112,14 +110,142 @@ public:
 		set_attendance(attendance);
 		cout << "Sconstructor\t" << this << endl;
 	}
+	~Student()
+	{
+		{
+			cout << "S_Destructor\t" << this << endl;
+		}
+	}
 
 	void print() const
 	{
 		Human::print();
 		cout << speciality << " " << group << " " << rating << " " << attendance << endl;
 	}
+};
 
+class Teacher : public Human
+{
+	std::string subject;
+	int certificate_year_expired;
+	double salary;
+	int elective_qty;
+	int rewards_qty;
 
+public:
+
+	const std::string& get_subject()const
+	{
+		return subject;
+	}
+	int get_certificate_year_expired() const
+	{
+		return certificate_year_expired;
+	}
+	double get_salary()const
+	{
+		return salary;
+	}
+	int get_elective_qty()const
+	{
+		return elective_qty;
+	}
+	int get_rewards_qty()const
+	{
+		return rewards_qty;
+	}
+
+	void set_subject(const std::string& subject)
+	{
+		this->subject = subject;
+	}
+	void set_certificate_year_expired(int certificate_year_expired)
+	{
+		this->certificate_year_expired = certificate_year_expired;
+	}
+	void set_salary(double salary)
+	{
+		this->salary = salary;
+	}
+	void set_elective_qty(int elective_qty)
+	{
+		this->elective_qty = elective_qty;
+	}
+	void set_rewards_qty(int rewards)
+	{
+		this->rewards_qty = rewards;
+	}
+
+	Teacher(const std::string& last_name, const std::string& first_name, int age, 
+		const std::string& subject, int certificate_year_expired, double salary, int elective_qty, int rewards_qty
+	) :Human(last_name, first_name, age)
+	{
+		set_subject(subject);
+		set_certificate_year_expired(certificate_year_expired);
+		set_salary(salary);
+		set_elective_qty(elective_qty);
+		set_rewards_qty(rewards_qty);
+		cout << "Tconstructor\t" << this << endl;
+	}
+	~Teacher()
+	{
+		{
+			cout << "T_Destructor\t" << this << endl;
+		}
+	}
+
+	void print() const
+	{
+		Human::print();
+		cout << subject << " " << certificate_year_expired << " " << salary << " " << elective_qty << " " << rewards_qty << endl;
+	}
+};
+
+class Graduated : public Student
+{
+	std::string diploma_numeration;
+	int year_of_graduation;
+
+public: 
+	const std::string& get_diploma_numeration()const
+	{
+		return diploma_numeration;
+	}
+	int get_year_of_graduation()const
+	{
+		return year_of_graduation;
+	}
+
+	void set_diploma_numeration(const std::string& diploma_numeration)
+	{
+		this->diploma_numeration = diploma_numeration;
+	}
+	void set_year_of_graduation(int year_of_graduation)
+	{
+		this->year_of_graduation = year_of_graduation;
+	}
+
+	Graduated(const std::string& last_name, const std::string& first_name, int age,
+		const std::string& speciality, const std::string& group, double rating, double attendance, 
+		const std::string& diploma_numeration, int year_of_graduation
+	) : Student(last_name, first_name, age, speciality, group, rating, attendance)
+	{
+		set_diploma_numeration(diploma_numeration);
+		set_year_of_graduation(year_of_graduation);
+		cout << "Gconstructor\t" << this << endl;
+	}
+	~Graduated()
+	{
+		{
+			cout << "G_Destructor\t" << this << endl;
+		}
+	}
+
+	void print() const
+	{
+		Student::print();
+		cout << diploma_numeration << " " << year_of_graduation << endl;
+	}
 };
 
 
@@ -127,12 +253,18 @@ public:
 void main() {
 
 	setlocale(LC_ALL, "");
-	Human human("Montana", "Antonio", 30);
+	
+	/*Human human("Montana", "Antonio", 30);
 	human.print();
 
-
 	Student stud("Pinkman", "Jessie", 25, "Chemistry", "WW_220", 95, 98);
-	stud.print();
+	stud.print();*/
+
+	Teacher ferras("Ferras", "Brian", 28, "Math", 2025, 98000.20, 2, 1);
+	ferras.print();
+
+	Graduated tasker("Tasker", "Steve", 19, "Chemistry", "WW_115", 93, 92, "AA_008798", 2022);
+	tasker.print();
 
 
 
